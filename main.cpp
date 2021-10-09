@@ -11,7 +11,7 @@ int main(int argc, char* args[]) {
     const float HALF = 0.5f;
     const float DOUBLE = 2.0f;
     const float INVERT = -1.0f;
-    const float FRAMES_PER_SECOND = 60.0f;
+    const float FRAMES_PER_SECOND = 144.0f;
 
     //Box2D
     const int PHYSICS_POSITION_ITERATIONS = 8;
