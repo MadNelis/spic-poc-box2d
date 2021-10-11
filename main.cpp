@@ -2,10 +2,12 @@
 #include <string>
 #include <Box2D/Box2D.h>
 #include <SDL.h>
+#include "Scene.hpp"
 
 using namespace std;
 
 int main(int argc, char* args[]) {
+    spic::Scene s;
 
     //Utility
     const float HALF = 0.5f;

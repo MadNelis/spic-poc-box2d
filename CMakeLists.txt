@@ -36,7 +36,8 @@ add_executable(spic_poc_box2d main.cpp
         Time.hpp
         Time.cpp
         Transform.hpp
-        UIObject.hpp)
+        UIObject.hpp
+        Scene.cpp)
 
 target_link_libraries(spic_poc_box2d sdl2main sdl2)
 target_link_libraries(spic_poc_box2d box2d)
