@@ -14,7 +14,6 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -24,7 +23,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
@@ -32,4 +30,5 @@
 *.app
 /html/
 
-cmake-build-debug
+cmake-build-debug/*
+!cmake-build-debug/SDL2.dll
