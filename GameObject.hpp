@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 namespace spic {
 
@@ -74,7 +75,7 @@ namespace spic {
              *          Find()-functions possible.
              * @param name The name for the game object.
              */
-            GameObject(const std::string& name);
+            explicit GameObject(const std::string& name);
 
             /**
              * @brief Does the object exist? TODO wat wordt hiermee bedoeld?
@@ -105,7 +106,7 @@ namespace spic {
              */
             template<class T>
             void AddComponent(std::shared_ptr<Component> component) {
-                // ... implementation here
+                components.push_back(component);
             }
 
             /**
@@ -115,7 +116,14 @@ namespace spic {
              */
             template<class T>
             std::shared_ptr<Component> GetComponent() const {
-                // ... implementation here
+                for (std::shared_ptr<Component> c: components) {
+                    std::string className = typeid(T).name();
+                    std::string::size_type pos = className.rfind(':');
+                    std::string classType = className.substr(pos + 1, className.size() - pos);
+                    if (c->getType() == classType) {
+                        return c;
+                    }
+                }
             }
 
             /**
@@ -197,6 +205,7 @@ namespace spic {
             std::string tag;
             bool active;
             int layer;
+            std::vector<std::shared_ptr<Component>> components;
             // ... more members
     };
 
