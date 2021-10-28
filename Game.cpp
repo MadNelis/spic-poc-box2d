@@ -210,6 +210,7 @@ void Game::run() {
     b2Vec2* wallRightBodyVertice = &(((b2PolygonShape*) wallRightBody->GetFixtureList()[0].GetShape())->m_vertices[0]);
     float wallRightShapeWidth = std::abs(wallRightBodyVertice->x * DOUBLE);
     float wallRightShapeHeight = std::abs(wallRightBodyVertice->y * DOUBLE);
+
     SDL_Rect* wallRightSprite = new SDL_Rect();
     wallRightSprite->w = (int) (wallRightShapeWidth * PIXELS_PER_METER_X);
     wallRightSprite->h = (int) (wallRightShapeHeight * PIXELS_PER_METER_Y);
@@ -295,34 +296,34 @@ void Game::run() {
 
         while (deltaTime >= WORLD_TIME_RESOLUTION) {
             // Input
-//            while (SDL_PollEvent(&event)) {
-//                switch (event.type) {
-//                    case SDL_QUIT:
-//                        quitFlag = true;
-//                        break;
-//                    case SDL_KEYDOWN:
-//                        if (event.key.keysym.sym == SDLK_ESCAPE) {
-//                            quitFlag = true;
-//                        }
-//                        break;
-//                }
-//
-//                keyState = SDL_GetKeyboardState(NULL);
-//                b2Vec2 nudgedVelocity = ballBody->GetLinearVelocity();
-//
-//                if (keyState[SDL_SCANCODE_UP]) { nudgedVelocity.y += BALL_NUDGE_FACTOR; }
-//                if (keyState[SDL_SCANCODE_DOWN]) { nudgedVelocity.y -= BALL_NUDGE_FACTOR; }
-//                if (keyState[SDL_SCANCODE_LEFT]) { nudgedVelocity.x -= BALL_NUDGE_FACTOR; }
-//                if (keyState[SDL_SCANCODE_RIGHT]) { nudgedVelocity.x += BALL_NUDGE_FACTOR; }
-//                ballBody->SetLinearVelocity(nudgedVelocity);
-//            }
-//
-//            if (keyState[SDL_SCANCODE_P]) {
-//                do {
-//                    SDL_PollEvent(&event);
-//                    lastTick = clock.now();
-//                } while (keyState[SDL_SCANCODE_P]);
-//            }
+            while (SDL_PollEvent(&event)) {
+                switch (event.type) {
+                    case SDL_QUIT:
+                        quitFlag = true;
+                        break;
+                    case SDL_KEYDOWN:
+                        if (event.key.keysym.sym == SDLK_ESCAPE) {
+                            quitFlag = true;
+                        }
+                        break;
+                }
+
+                keyState = SDL_GetKeyboardState(NULL);
+                b2Vec2 nudgedVelocity = ballBody->GetLinearVelocity();
+
+                if (keyState[SDL_SCANCODE_UP]) { nudgedVelocity.y += BALL_NUDGE_FACTOR; }
+                if (keyState[SDL_SCANCODE_DOWN]) { nudgedVelocity.y -= BALL_NUDGE_FACTOR; }
+                if (keyState[SDL_SCANCODE_LEFT]) { nudgedVelocity.x -= BALL_NUDGE_FACTOR; }
+                if (keyState[SDL_SCANCODE_RIGHT]) { nudgedVelocity.x += BALL_NUDGE_FACTOR; }
+                ballBody->SetLinearVelocity(nudgedVelocity);
+            }
+
+            if (keyState[SDL_SCANCODE_P]) {
+                do {
+                    SDL_PollEvent(&event);
+                    lastTick = clock.now();
+                } while (keyState[SDL_SCANCODE_P]);
+            }
 
 
             world->Step(deltaTime / (keyState[SDL_SCANCODE_S] ? WORLD_SLOW_MOTION_FACTOR : 1.0f),
@@ -339,30 +340,30 @@ void Game::run() {
         scene.RenderScene(renderTarget);
 
         //Render Screen
-        SDL_SetRenderDrawColor(
-                renderTarget,
-                COLOR_BLACK_R,
-                COLOR_BLACK_G,
-                COLOR_BLACK_B,
-                COLOR_BLACK_A
-        );
-        SDL_RenderClear(renderTarget);
-
-        SDL_SetRenderDrawColor(
-                renderTarget,
-                COLOR_TERMINALGREEN_R,
-                COLOR_TERMINALGREEN_G,
-                COLOR_TERMINALGREEN_B,
-                COLOR_TERMINALGREEN_A
-        );
-
-        SDL_RenderFillRect(renderTarget, wallRightSprite);
-        SDL_RenderFillRect(renderTarget, wallLeftSprite);
-        SDL_RenderFillRect(renderTarget, wallTopSprite);
-        SDL_RenderFillRect(renderTarget, wallBottomSprite);
-        SDL_RenderFillRect(renderTarget, ballSprite);
-
-        SDL_RenderPresent(renderTarget);
+//        SDL_SetRenderDrawColor(
+//                renderTarget,
+//                COLOR_BLACK_R,
+//                COLOR_BLACK_G,
+//                COLOR_BLACK_B,
+//                COLOR_BLACK_A
+//        );
+//        SDL_RenderClear(renderTarget);
+//
+//        SDL_SetRenderDrawColor(
+//                renderTarget,
+//                COLOR_TERMINALGREEN_R,
+//                COLOR_TERMINALGREEN_G,
+//                COLOR_TERMINALGREEN_B,
+//                COLOR_TERMINALGREEN_A
+//        );
+//
+//        SDL_RenderFillRect(renderTarget, wallRightSprite);
+//        SDL_RenderFillRect(renderTarget, wallLeftSprite);
+//        SDL_RenderFillRect(renderTarget, wallTopSprite);
+//        SDL_RenderFillRect(renderTarget, wallBottomSprite);
+//        SDL_RenderFillRect(renderTarget, ballSprite);
+//
+//        SDL_RenderPresent(renderTarget);
     }
 
     SDL_DestroyRenderer(renderTarget);

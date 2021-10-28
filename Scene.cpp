@@ -1,4 +1,5 @@
 #include "Scene.hpp"
+#include "Sprite.hpp"
 
 spic::Scene::Scene() : world{new PhysicsWorld} {}
 
@@ -21,8 +22,14 @@ void spic::Scene::RenderScene(SDL_Renderer* renderTarget) {
     );
 
     for (std::shared_ptr<GameObject> gameObject: contents) {
+        std::shared_ptr<Component> sprite = gameObject->GetComponent<Sprite>();
+        Component* bodyC = sprite.get();
+        Sprite* s = (Sprite*) bodyC;
 
+        SDL_RenderFillRect(renderTarget, s->getSdlSprite());
     }
+
+    SDL_RenderPresent(renderTarget);
 }
 
 void spic::Scene::addBody(const std::shared_ptr<RigidBody> body) {}

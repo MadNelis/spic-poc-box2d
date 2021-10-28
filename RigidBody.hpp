@@ -46,6 +46,8 @@ namespace spic {
 
         void createWall(float x, float y, float w, float h);
 
+
+
     private:
         Scene& scene;
 
@@ -55,6 +57,13 @@ namespace spic {
         b2CircleShape* fixtureShape;
         b2FixtureDef* fixtureDef;
 
+        std::string shape;
+    public:
+        const std::string& getShape() const;
+
+        void setShape(const std::string& shape);
+
+    private:
         double mass;
         double gravityScale;
         BodyType bodyType;

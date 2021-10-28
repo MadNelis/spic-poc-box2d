@@ -33,6 +33,7 @@ b2FixtureDef* spic::RigidBody::getBallFixtureDef() {
 }
 
 void spic::RigidBody::createBall() {
+    setShape("Circle");
     bodyDef = new b2BodyDef();
     bodyDef->type = b2_dynamicBody;
     bodyDef->position.Set(4.0f, -30.0f);
@@ -59,6 +60,7 @@ void spic::RigidBody::createBall() {
 }
 
 void spic::RigidBody::createWall(float x, float y, float w, float h) {
+    setShape("Polygon");
     b2BodyDef* wallRightBodyDef = new b2BodyDef();
     wallRightBodyDef->type = b2_staticBody;
     wallRightBodyDef->position.Set(x, y);
@@ -77,4 +79,12 @@ void spic::RigidBody::createWall(float x, float y, float w, float h) {
 
 b2Body* spic::RigidBody::getBody() {
     return body;
+}
+
+const std::string& spic::RigidBody::getShape() const {
+    return shape;
+}
+
+void spic::RigidBody::setShape(const std::string& shape) {
+    RigidBody::shape = shape;
 }
