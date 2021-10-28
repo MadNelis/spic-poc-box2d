@@ -24,6 +24,10 @@ namespace spic {
         b2Body* createBody(const b2BodyDef* bodyDef) {
             return b2world->CreateBody(bodyDef);
         }
+
+        void step(float timeStep, const int velocityIter, const int positionsIter) {
+            b2world->Step(timeStep, velocityIter, positionsIter);
+        }
     };
 
     /**

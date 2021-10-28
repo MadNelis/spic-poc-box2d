@@ -26,7 +26,7 @@ void spic::Scene::RenderScene(SDL_Renderer* renderTarget) {
         Component* bodyC = sprite.get();
         Sprite* s = (Sprite*) bodyC;
 
-        SDL_RenderFillRect(renderTarget, s->getSdlSprite());
+        SDL_RenderFillRect(renderTarget, s->getSdlSprite(gameObject));
     }
 
     SDL_RenderPresent(renderTarget);

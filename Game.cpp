@@ -332,6 +332,8 @@ void Game::run() {
                 } while (keyState[SDL_SCANCODE_P]);
             }
 
+            scene.world->step(deltaTime / (keyState[SDL_SCANCODE_S] ? WORLD_SLOW_MOTION_FACTOR : 1.0f),
+                              PHYSICS_VELOCITY_ITERATIONS, PHYSICS_POSITION_ITERATIONS);
 
             world->Step(deltaTime / (keyState[SDL_SCANCODE_S] ? WORLD_SLOW_MOTION_FACTOR : 1.0f),
                         PHYSICS_VELOCITY_ITERATIONS, PHYSICS_POSITION_ITERATIONS);

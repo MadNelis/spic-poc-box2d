@@ -41,7 +41,28 @@ namespace spic {
             shape = r->getShape();
         }
 
-        SDL_Rect* getSdlSprite() {
+        SDL_Rect* getSdlSprite(std::shared_ptr<GameObject> gameObject) {
+            std::shared_ptr<Component> body = gameObject->GetComponent<RigidBody>();
+            Component* bodyC = body.get();
+            RigidBody* r = (RigidBody*) bodyC;
+
+            if (r->getShape() == "Circle") {
+                float radius = r->getBody()->GetFixtureList()[0].GetShape()->m_radius;
+                x = r->getBody()->GetPosition().x * Game::PIXELS_PER_METER_X;
+                y = r->getBody()->GetPosition().y * Game::PIXELS_PER_METER_Y * -1.0f;
+                w = (int) radius * 2 * Game::PIXELS_PER_METER_X;
+                h = (int) radius * 2 * Game::PIXELS_PER_METER_Y;
+            } else if (r->getShape() == "Polygon") {
+                b2Vec2* bodyVertice = &(((b2PolygonShape*) r->getBody()->GetFixtureList()[0].GetShape())->m_vertices[0]);
+                float shapeWidth = std::abs(bodyVertice->x * 2);
+                float shapeHeight = std::abs(bodyVertice->y * 2);
+
+                x = (r->getBody()->GetPosition().x - shapeWidth * 0.5f) * Game::PIXELS_PER_METER_X;
+                y = (r->getBody()->GetPosition().y + shapeHeight * 0.5f) * Game::PIXELS_PER_METER_Y * -1.0f;
+                w = shapeWidth * Game::PIXELS_PER_METER_X;
+                h = shapeHeight * Game::PIXELS_PER_METER_Y;
+            }
+
             SDL_Rect* sprite = new SDL_Rect();
             sprite->x = this->x;
             sprite->y = this->y;
