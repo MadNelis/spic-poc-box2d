@@ -3,11 +3,11 @@
 
 #include "Component.hpp"
 #include "Color.hpp"
+#include "Game.hpp"
 #include <string>
 #include <memory>
 
 namespace spic {
-
     /**
      * @brief A component representing a sprite (small image)
      */
@@ -20,20 +20,22 @@ namespace spic {
             std::shared_ptr<Component> body = gameObject->GetComponent<RigidBody>();
             Component* bodyC = body.get();
             RigidBody* r = (RigidBody*) bodyC;
-            x = r->getBody()->GetPosition().x;
-            y = r->getBody()->GetPosition().y;
 
             if (r->getShape() == "Circle") {
                 float radius = r->getBody()->GetFixtureList()[0].GetShape()->m_radius;
-                w = (int) radius * 2;
-                h = (int) radius * 2;
+                x = r->getBody()->GetPosition().x * Game::PIXELS_PER_METER_X;
+                y = r->getBody()->GetPosition().y * Game::PIXELS_PER_METER_Y * -1.0f;
+                w = (int) radius * 2 * Game::PIXELS_PER_METER_X;
+                h = (int) radius * 2 * Game::PIXELS_PER_METER_Y;
             } else if (r->getShape() == "Polygon") {
                 b2Vec2* bodyVertice = &(((b2PolygonShape*) r->getBody()->GetFixtureList()[0].GetShape())->m_vertices[0]);
                 float shapeWidth = std::abs(bodyVertice->x * 2);
                 float shapeHeight = std::abs(bodyVertice->y * 2);
 
-                w = shapeWidth;
-                h = shapeHeight;
+                x = (r->getBody()->GetPosition().x - shapeWidth * 0.5f) * Game::PIXELS_PER_METER_X;
+                y = (r->getBody()->GetPosition().y + shapeHeight * 0.5f) * Game::PIXELS_PER_METER_Y * -1.0f;
+                w = shapeWidth * Game::PIXELS_PER_METER_X;
+                h = shapeHeight * Game::PIXELS_PER_METER_Y;
             }
 
             shape = r->getShape();

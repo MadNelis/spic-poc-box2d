@@ -8,6 +8,7 @@
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
+
 Game::Game() {
     run();
 }
@@ -77,34 +78,42 @@ void Game::run() {
     std::shared_ptr<spic::RigidBody> ballRigidBody = make_shared<spic::RigidBody>(spic::BodyType::dynamicBody, scene);
     ballRigidBody->createBall();
     ball->AddComponent<spic::RigidBody>(ballRigidBody);
+    std::shared_ptr<spic::Sprite> bSprite = make_shared<spic::Sprite>(ball);
+    ball->AddComponent<spic::Sprite>(bSprite);
 
     std::shared_ptr<spic::GameObject> rightWall = make_shared<spic::GameObject>("RightWall");
     std::shared_ptr<spic::RigidBody> rightWallRigidBody = make_shared<spic::RigidBody>(spic::BodyType::dynamicBody, scene);
     rightWallRigidBody->createWall(WORLD_WIDTH - (WORLD_UNIT * HALF), (WORLD_HEIGHT * HALF) * INVERT, WALL_THICKNESS, WORLD_HEIGHT);
     rightWall->AddComponent<spic::RigidBody>(rightWallRigidBody);
+    std::shared_ptr<spic::Sprite> rwSprite = make_shared<spic::Sprite>(rightWall);
+    rightWall->AddComponent<spic::Sprite>(rwSprite);
 
     std::shared_ptr<spic::GameObject> leftWall = make_shared<spic::GameObject>("LeftWall");
     std::shared_ptr<spic::RigidBody> leftWallRigidBody = make_shared<spic::RigidBody>(spic::BodyType::dynamicBody, scene);
     leftWallRigidBody->createWall(WORLD_UNIT * HALF, (WORLD_HEIGHT * HALF) * INVERT, WALL_THICKNESS, WORLD_HEIGHT);
     leftWall->AddComponent<spic::RigidBody>(leftWallRigidBody);
+    std::shared_ptr<spic::Sprite> lwSprite = make_shared<spic::Sprite>(leftWall);
+    leftWall->AddComponent<spic::Sprite>(lwSprite);
 
     std::shared_ptr<spic::GameObject> topWall = make_shared<spic::GameObject>("TopWall");
     std::shared_ptr<spic::RigidBody> topWallRigidBody = make_shared<spic::RigidBody>(spic::BodyType::dynamicBody, scene);
     topWallRigidBody->createWall(WORLD_WIDTH * HALF, (WORLD_UNIT * HALF) * INVERT, WORLD_WIDTH, WALL_THICKNESS);
     topWall->AddComponent<spic::RigidBody>(topWallRigidBody);
+    std::shared_ptr<spic::Sprite> twSprite = make_shared<spic::Sprite>(topWall);
+    topWall->AddComponent<spic::Sprite>(twSprite);
 
     std::shared_ptr<spic::GameObject> bottomWall = make_shared<spic::GameObject>("BottomWall");
     std::shared_ptr<spic::RigidBody> bottomWallRigidBody = make_shared<spic::RigidBody>(spic::BodyType::dynamicBody, scene);
     bottomWallRigidBody->createWall(WORLD_WIDTH * HALF, (WORLD_HEIGHT - (WORLD_UNIT * HALF)) * INVERT, WORLD_WIDTH, WALL_THICKNESS);
     bottomWall->AddComponent<spic::RigidBody>(bottomWallRigidBody);
+    std::shared_ptr<spic::Sprite> bwSprite = make_shared<spic::Sprite>(bottomWall);
+    bottomWall->AddComponent<spic::Sprite>(bwSprite);
 
     scene.addGameObject(ball);
     scene.addGameObject(rightWall);
     scene.addGameObject(leftWall);
     scene.addGameObject(topWall);
     scene.addGameObject(bottomWall);
-
-//    std::shared_ptr<spic::Component> co = ball.GetComponent<spic::RigidBody>();
 
     //Ball
     b2BodyDef* ballBodyDef = new b2BodyDef();
@@ -203,8 +212,6 @@ void Game::run() {
     ballSprite->y = ballBody->GetPosition().y * PIXELS_PER_METER_Y * INVERT;
     ballSprite->w = (int) (ballShapeRadius * DOUBLE * PIXELS_PER_METER_X);
     ballSprite->h = (int) (ballShapeRadius * DOUBLE * PIXELS_PER_METER_Y);
-
-    std::shared_ptr<spic::Sprite> bSprite = make_shared<spic::Sprite>(ball);
 
     //Right Wall Sprite
     b2Vec2* wallRightBodyVertice = &(((b2PolygonShape*) wallRightBody->GetFixtureList()[0].GetShape())->m_vertices[0]);
